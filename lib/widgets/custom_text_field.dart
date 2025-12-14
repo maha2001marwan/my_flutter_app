@@ -1,21 +1,30 @@
-import 'package:flutter/material.dart';
+import 'package:flutter/material.dart'; // استيراد مكتبة Flutter الخاصة بالتصميم والواجهات
 
-// عنصر واجهة مخصص لحقل إدخال يمكن استخدامه للبريد أو كلمة المرور
+// تعريف كلاس مخصص لحقل إدخال النص
 class CustomTextField extends StatelessWidget {
-  const CustomTextField({super.key, this.hint, this.isPassword = false});
+  // مُنشئ الكلاس مع الخصائص المطلوبة
+  const CustomTextField({
+    super.key, // مفتاح فريد للودجت (اختياري)
+    this.hint, // نص مساعد يظهر داخل الحقل
+    this.isPassword = false, // هل الحقل خاص بكلمة مرور؟ القيمة الافتراضية: لا
+    required this.cont, // المتحكم في النص داخل الحقل (إجباري)
+  });
 
-  final String? hint; // نص الإرشاد داخل الحقل (مثل "Email")
-  final bool isPassword; // لتحديد إذا كان الحقل خاص بكلمة مرور
+  final String? hint; // متغير لتخزين النص المساعد داخل الحقل
+  final bool isPassword; // متغير لتحديد إذا كان الحقل يخفي النص (كلمة مرور)
+  final TextEditingController cont; // متغير للتحكم في النص داخل الحقل
 
   @override
-  Widget  build(BuildContext context) {  // اضافة const بيعمل error لانه بياخد متغير وهو الtext المدخل في textfiled
+  Widget build(BuildContext context) {
+    // بناء واجهة الودجت
     return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 60), // هامش داخلي للحقل لانه بياخذ كل العرض تبع الشاشة
+      padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 60), // إضافة هوامش حول الحقل
       child: TextField(
-        obscureText: isPassword, // إذا كان الحقل لكلمة مرور، يتم إخفاء النص
+        controller: cont, // ربط الحقل بالمتحكم بالنص
+        obscureText: isPassword, // إخفاء النص إذا كان الحقل لكلمة مرور
         decoration: InputDecoration(
-          border: OutlineInputBorder(), // إطار الحقل
-          hintText: hint, // نص الإرشاد داخل الحقل
+          border: OutlineInputBorder(), // تحديد حدود خارجية للحقل
+          hintText: hint, // عرض النص المساعد داخل الحقل
         ),
       ),
     );
