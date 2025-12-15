@@ -1,46 +1,143 @@
 import 'package:flutter/material.dart';
 import 'package:my_flutter_app/screens/figmaa.dart';
 import 'package:my_flutter_app/widgets/custom_text_field.dart'; // استيراد عنصر الإدخال المخصص
+import 'package:my_flutter_app/screens/sign_up.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 class Login extends StatelessWidget {
   Login({super.key}); // مُنشئ ثابت بدون مفتاح محدد
   // TextEditingController fieldCont =
   //     TextEditingController(); // إنشاء متحكم لحقل النص لتخزين واسترجاع القيم المدخلة
- TextEditingController emailCont = TextEditingController(); // إنشاء متحكم لحقل إدخال البريد الإلكتروني
-TextEditingController passWordController = TextEditingController(); // إنشاء متحكم لحقل إدخال كلمة المرور
+ final TextEditingController emailCont = TextEditingController(); // إنشاء متحكم لحقل إدخال البريد الإلكتروني
+final TextEditingController passWordController = TextEditingController(); // إنشاء متحكم لحقل إدخال كلمة المرور
+    // مفتاح النموذج للتحقق من صحة البيانات
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('Login')), // شريط التطبيق بعنوان "Login"
+       // خلفية الصفحة
+      backgroundColor: const Color(0xFFF5F6FA),
+     // appBar: AppBar(title: Text('Login')), // شريط التطبيق بعنوان "Login"
       body: Center(
+           child: Padding(
+          padding: const EdgeInsets.all(16.0),
+
+         child: Form(
+            key: _formKey, // ربط النموذج بالمفتاح
+
         child: Column(
           children: [
-            Image.network(
-              'https://plus.unsplash.com/premium_photo-1681487814165-018814e29155?fm=jpg&q=60&w=3000&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxZWFyY2h8MXx8fHx8fDJ8fA%3D%3D',
-              height: 200, // صورة من الإنترنت بارتفاع 200
-            ),
+               // أيقونة فوق النصوص
+    // Icon(
+    //   Icons.lock_outline, // ممكن تختاري أيقونة ثانية مثل Icons.person
+    //   size: 64,
+    //   color: Colors.blue,
+    // ),
+    SizedBox(height: 100),
+        SvgPicture.asset(
+      'assets/images/logo-79.svg',
+      height: 30,width: 30, // حجم أكبر من 30 ليظهر واضح
+    ),
+            // Image.network(
+            //   'https://plus.unsplash.com/premium_photo-1681487814165-018814e29155?fm=jpg&q=60&w=3000&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxZWFyY2h8MXx8fHx8fDJ8fA%3D%3D',
+            //   height: 200, // صورة من الإنترنت بارتفاع 200
+            // ),
             // TextField(
             //   controller:
             //       fieldCont, // ربط حقل الإدخال بالمتحكم لقراءة أو تعديل النص
             // ),
-
-            CustomTextField(hint: 'Email', cont: emailCont,), // حقل إدخال للبريد الإلكتروني
-            CustomTextField(
+// Text(
+//   'Welcome Back!',
+//   style: GoogleFonts.poppins(fontSize: 24, fontWeight: FontWeight.bold),
+// ),
+ RichText(
+                  text: const TextSpan(
+                    children: [
+                      TextSpan(
+                        text: 'Welcome ',
+                        style: TextStyle(
+                          fontSize: 28,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.black,
+                        ),
+                      ),
+                      TextSpan(
+                        text: 'Back!',
+                        style: TextStyle(
+                          fontSize: 20,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.blue,
+                        ),
+                      ), ],
+                  ),
+                ),
+SizedBox(height: 8),
+Text(
+  'Login to your account',
+  style: GoogleFonts.poppins(fontSize: 10, color: Colors.grey),
+),
+SizedBox(height: 16),
+            CustomTextField(hint: 'Email or Phone Number', cont: emailCont,  
+            validate: (email) {
+              if (email != null && email.contains('@') && email.contains('.')) {
+                return null;
+              }
+              return 'Enter Valid Email';
+            },
+            // validate: (value) {
+            //         if (value == null || value.isEmpty) {
+            //           return 'يرجى إدخال البريد الإلكتروني';
+            //         }
+            //         return null;
+            //       },
+), // حقل إدخال للبريد الإلكتروني
+            CustomTextField( suffixIcon: Icon(
+                      Icons.visibility_off,
+                      color: Colors.blueGrey,
+                      size: 20,
+                    ),
               hint: 'password',
-              isPassword: true,cont: passWordController,
+              isPassword: true,cont: passWordController,  validate: (password) {
+              if (password != null && password.length >= 8) {
+                return null;
+              }
+              return 'Weak Password';
+            },
+
+                // validate: (value) {
+                //     if (value == null || value.isEmpty) {
+                //       return 'يرجى إدخال كلمة المرور';
+                //     }
+                //     return null;
+                //   }
             ), // حقل إدخال لكلمة المرور مع إخفاء النص
             ElevatedButton(
-              style: ElevatedButton.styleFrom(
-                backgroundColor: const Color.fromRGBO(
-                  255,
-                  193,
-                  7,
-                  1,
-                ), // لون زر التسجيل الدخول
-              ),
+               style: ElevatedButton.styleFrom(
+    backgroundColor: Colors.blue, // اللون الأزرق
+    padding: EdgeInsets.symmetric(horizontal: 145, vertical: 12),
+    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+  ),
 
               onPressed: () {
-                 _login(context); // عند الضغط يتم تنفيذ دالة تسجيل الدخول
+ // عرض البيانات المدخلة في SnackBar
+                ScaffoldMessenger.of(context).showSnackBar(
+                  SnackBar(
+                    content: Text(
+                      '${emailCont.text} ${passWordController.text}',
+                    ),
+                  ),
+                );
+
+                // تفريغ الحقول بعد الضغط
+                emailCont.clear();
+                passWordController.clear();
+              
+
+
+                // _login(context);
+                  // عند الضغط يتم تنفيذ دالة تسجيل الدخول
 
                 // var text =
                 //     fieldCont.text; // قراءة النص من الحقل وتخزينه في متغير
@@ -54,25 +151,173 @@ TextEditingController passWordController = TextEditingController(); // إنشا�
                 //   ),
                 // );
               },
-              child: Text('login'), // النص الظاهر داخل الزر
+                child: Text('login', style: TextStyle(
+                        fontSize: 16,
+                        fontWeight: FontWeight.w500,
+                        color: Colors.white,
+                      ),),
+
+               // النص الظاهر داخل الزر
             ),
+                            TextButton(
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => Signup()),
+                    );
+                  },
+                  child: Text("Don't have an account? Signup now",style: TextStyle( fontSize: 14,
+                        fontWeight: FontWeight.w500,
+                        color: const Color.fromARGB(110, 0, 0, 0),
+                      ),),
+                ),
+                TextButton(
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) =>Signup()
+                     //  ForgetPassword()
+                       ),
+                    );
+                  },
+                  child: Text("Forget Password ?",style: TextStyle( fontSize: 14,
+                        fontWeight: FontWeight.w500,
+                        color: const Color.fromARGB(134, 0, 0, 0),),
+               // النص الظاهر داخل الزر
+            ),),
+                //             TextButton(
+                //   onPressed: () {
+                //     Navigator.push(
+                //       context,
+                //       MaterialPageRoute(builder: (context) => Signup()),
+                //     );
+                //   },
+                //   child: Text("Don't have an account ? Signup now",style: TextStyle( fontSize: 16,
+                //         fontWeight: FontWeight.w500,
+                //         color: const Color.fromARGB(134, 0, 0, 0),),
+                // ), ),
           ],
         ),
-      ),
+      ), ),),
     );
   }
 
   // دالة التنقل إلى صفحة Home بعد تسجيل الدخول
-  _login(BuildContext context) {
-    Navigator.push(
+  // _login(BuildContext context) {
+  //   Navigator.push(
+  //     context,
+  //     MaterialPageRoute(
+  //       //     builder: (context) {
+  //       //   return Home(); // الانتقال إلى شاشة الصفحة الرئيسية
+  //       // },
+  //       // اختصرته في سطر واحد
+  //       builder: (context) => Home(), // التنقل إلى صفحة Home
+  //     ),
+  //   );
+  // }
+  
+  // void _login1(BuildContext context) {
+  //   Navigator.pushReplacement(
+  //     context,
+  //     MaterialPageRoute(builder: (context) => const Home()),
+  //   );
+  // }
+  
+  // دالة تسجيل الدخول
+  void _login(BuildContext context) {
+    // التحقق من صحة النموذج قبل المتابعة
+    if (_formKey.currentState?.validate() ?? false) {
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(builder: (context) => Home()),
+        );
+    } else {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text('Enter Valid Credentials'),
+          duration: Duration(milliseconds: 500),
+          backgroundColor: Colors.red,
+        ),
+      );
+
+    }
+     var email = emailCont.text;
+    var password = passWordController.text;
+
+    emailCont.clear();
+    passWordController.clear();
+    // التحقق من أن الحقول غير فارغة
+    if (email.isEmpty || password.isEmpty) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('please enter your data')),
+      );
+    }
+    if (!email.contains('@') || !email.contains('.') || password.length < 8) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text('Enter Valid Credentials'),
+          duration: Duration(milliseconds: 500),
+          backgroundColor: Colors.red,
+        ),
+      );
+    } else {
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(builder: (context) => Home()),
+      );
+    }
+
+  }
+  
+
+  // دالة تسجيل الدخول
+  _login3(BuildContext context) {
+    var email = emailCont.text;
+    var pass = passWordController.text;
+
+    // تفريغ الحقول مباشرة (يفضل تأجيلها بعد التحقق)
+    emailCont.clear();
+    passWordController.clear();
+    // التحقق من الحقول الفارغة
+    if (email.isEmpty || pass.isEmpty) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text("Fill Empty Fields")),
+      );
+    }
+    // التحقق من وجود @ في البريد
+    else if (!email.contains("@")) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text("@ symbol is missed")),
+      );
+    }
+    // التحقق من وجود . في البريد
+    else if (!email.contains(".")) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text(". symbol is missed")),
+      );
+    }
+    // التحقق من طول كلمة المرور
+    else if (pass.length < 8) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text("password is short")),
+      );
+    }
+    // إذا كانت البيانات صحيحة
+    else {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text("${emailCont.text}, ${passWordController.text}")),
+      );
+    }
+
+    // التنقل إلى الصفحة التالية
+    Navigator.pushReplacement(
       context,
       MaterialPageRoute(
-        //     builder: (context) {
-        //   return Home(); // الانتقال إلى شاشة الصفحة الرئيسية
-        // },
-        // اختصرته في سطر واحد
-        builder: (context) => Home(), // التنقل إلى صفحة Home
+        builder: (context) => Home(), // تأكد أن صفحة Home موجودة
       ),
     );
   }
 }
+
+
+

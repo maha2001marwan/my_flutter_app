@@ -41,8 +41,16 @@ class Home extends StatelessWidget {
        backgroundColor: Colors.white, // لون ثابت
   elevation: 0, // بدون ظل عند التمرير
   surfaceTintColor: Colors.transparent, // يمنع تأثير التعتيم
+ 
+ 
+ leading: IconButton(
+          icon: const Icon(Icons.arrow_back),
+          onPressed: () {
+            Navigator.pop(context);
+          },
+        ),
 
-      leading: Icon(Icons.menu),
+    //  leading: Icon(Icons.menu),
       //  title: Image.asset('assets/images/shopping-cart.svg', height: 30),
       title: SvgPicture.asset('assets/images/logo-79.svg', height: 30),
       actions: [
@@ -148,6 +156,17 @@ class Home extends StatelessWidget {
                       rate: 3.5,
                     ),
                     FreelancerInfo(
+                      img: 'https://images.unsplash.com/photo-1480455624313-e29b44bbfde1?fm=jpg&q=60&w=3000&ixlib=rb-4.1',
+                      name: 'Ahmed',
+                      title: 'Engineer',
+                      rate: 4.5,
+                    ),
+                     FreelancerInfo(
+                      img: 'https://www.mensjournal.com/.image/t_share/MTk2MTM2NTcwNDMxMjg0NzQx/man-taking-selfie.jpg',
+                      name: 'Mohamed',
+                      title: 'Doctor',
+                      rate: 3.5,
+                    ), FreelancerInfo(
                       img: 'https://images.unsplash.com/photo-1480455624313-e29b44bbfde1?fm=jpg&q=60&w=3000&ixlib=rb-4.1',
                       name: 'Ahmed',
                       title: 'Engineer',
