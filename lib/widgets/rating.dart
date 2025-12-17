@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 
 class Rating extends StatelessWidget {
-  const Rating({super.key, required this.rate});
+  const Rating({super.key, required this.rate
+  ,required this.count});
   final double rate;
+  final double count;
 
   @override
   Widget build(BuildContext context) {
@@ -18,6 +20,12 @@ class Rating extends StatelessWidget {
           Text(
             rate.toStringAsFixed(1),
             style: TextStyle(fontWeight: FontWeight.bold),
+          ),
+          SizedBox( width: 5),
+           Text(
+           '(${count})' ,
+            style: TextStyle(fontWeight: FontWeight.w300,
+            fontSize: 10),
           ), // Text
         ],
       ),

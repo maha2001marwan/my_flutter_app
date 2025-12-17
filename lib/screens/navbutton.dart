@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:my_flutter_app/screens/home_screen.dart';
-import 'package:my_flutter_app/screens/sign_up.dart';
 import 'package:my_flutter_app/screens/login.dart';
  import 'package:my_flutter_app/widgets/routes.dart';
  import 'package:my_flutter_app/screens/figmaa.dart';
@@ -26,6 +25,7 @@ class _NavbuttonState extends State<Navbutton> {
     // القائمة الجانبية (Drawer)
       drawer: Drawer(
         child: Column(
+
           children: [
             // عنصر تسجيل الدخول
             ListTile(
@@ -105,6 +105,13 @@ class _NavbuttonState extends State<Navbutton> {
          
        
   bottomNavigationBar: BottomNavigationBar(
+     type: BottomNavigationBarType.fixed, // يثبت العناصر
+  backgroundColor: Color(0xFF827BE8), // خلفية موف زي لون الزر
+   selectedItemColor: Colors.white,    // لون العنصر المختار
+  unselectedItemColor: Colors.white70, // لون العناصر غير المختارة
+  showSelectedLabels: true, // تظهر العناوين مع العناصر المختارة
+  showUnselectedLabels: true, // تظهر العناوين مع العناصر غير المختارة
+    elevation: 8, 
     currentIndex: index,
     onTap: (value) {
       setState(() {

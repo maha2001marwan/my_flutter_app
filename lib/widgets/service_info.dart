@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart'; // استيراد مكتبة الواجهات من Flutter
 import 'package:my_flutter_app/data/freelancer_model.dart';
-import 'package:my_flutter_app/widgets/rating.dart';
 
 // class ServiceInfo extends StatelessWidget {
 //   // تعريف ودجت ثابتة لعرض معلومات خدمة
@@ -160,6 +159,14 @@ class ServiceInfo extends StatelessWidget {
               clipBehavior: Clip.none,
               children: [
                 // خلفية الخدمة
+                // ClipRRect هو Widget بيقص (clip) المحتوى اللي داخله حسب شكل مستطيل بزوايا مدورة (Rounded Rectangle).
+  // child: ClipRRect(
+  //         borderRadius: BorderRadius.circular(24),
+  //         child: Image.asset(
+  //           bkmgPath,
+  //           height: 200,
+  //           width: 300,
+
                 Container(
                   alignment: Alignment.bottomLeft,
                   width: 300,
@@ -178,24 +185,35 @@ class ServiceInfo extends StatelessWidget {
                    right: -80, // ↪️ الصورة تبدأ من اليمين
                   top: 0,
                   bottom: 0,
-                  width: 270,
+                  width: 300,
                  child:  Transform.scale(
                                     //scale: 0.8,
                                      scaleY: 0.9,
                                     child:
                                   
                   Container(
-                    padding: EdgeInsets.all(25),
+                    padding: EdgeInsets.only(top: 25, left: 12, right: 12, bottom: 12),
                     decoration: BoxDecoration(
                       color: Colors.white,
                       borderRadius: BorderRadius.circular(16),
-                      boxShadow: [
-                        BoxShadow(
-                          color: Colors.black.withOpacity(0.2),
-                          blurRadius: 6,
-                          offset: Offset(0, 3),
-                        ),
-                      ],
+//                       boxShadow: [
+//                         BoxShadow(
+// //                          لون الظل. غالبًا نستخدم Colors.black.withAlpha(20) لظل خفيف وناعم.
+//                           color: Colors.black.withOpacity(0.2),
+//                           blurRadius: 6,//درجة نعومة الظل. كل ما زاد، صار الظل ناعم أكثر ويعطي إحساس 3D.
+//                           spreadRadius: 0,// مدى انتشار الظل. قيمة موجبة توسع الظل، وقيمة سالبة تقلله.
+//                           offset: Offset(0, 3),//موقع الظل بالنسبة للعنصر. مثلًا Offset(0, 3) يعني تحت العنصر.
+
+//                         ),
+//                       ],
+boxShadow: [
+    BoxShadow(
+      color: Colors.black.withOpacity(0.2),
+      spreadRadius: 1,
+      blurRadius: 12,
+      offset: Offset(0, 6),
+    ),
+  ],
                     ),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.start,
@@ -204,7 +222,7 @@ class ServiceInfo extends StatelessWidget {
                         // صورة الفريلانسر
                         CircleAvatar(
                           backgroundImage: NetworkImage(model.img),
-                          radius: 30,
+                          radius: 45,
                         ),
                         SizedBox(width: 12),
           
@@ -229,27 +247,53 @@ class ServiceInfo extends StatelessWidget {
                               ),
                               Row(
                                 children: [
-                                  Transform.scale(
-                                    scale: 0.8,
-                                    child: Rating(rate: model.rate),
-                                  ),
+                                //   Transform.scale(
+                                //     scale: 0.8,
+                                //     child:
+                                     model.rating,
+                                   //),
+                                  
                                   Spacer(),
                                   ElevatedButton(
                                     onPressed: () {},
-                                    style: ElevatedButton.styleFrom(
-                                      backgroundColor: Colors.blue,
-                                      padding: EdgeInsets.symmetric(
-                                          horizontal: 12, vertical: 6),
-                                      shape: RoundedRectangleBorder(
-                                        borderRadius: BorderRadius.circular(12),
-                                      ),
-                                    ),
+                                    
+                                    // style: ElevatedButton.styleFrom(
+                                    //   elevation: 6, // ارتفاع الظل (يعطي إحساس 3D)
+
+                                    //   // backgroundColor: Colors.blue,
+                                    //   padding: EdgeInsets.symmetric(
+                                    //       horizontal: 12, vertical: 6),
+                                    //   shape: RoundedRectangleBorder(
+                                    //     borderRadius: BorderRadius.circular(12),
+                                    //   ),
+                                    // ),
+                                     style: ButtonStyle(
+    backgroundColor: WidgetStateProperty.resolveWith<Color?>((states) {
+      if (states.contains(WidgetState.pressed)) {
+        return Colors.deepPurple; // أثناء الضغط
+      }
+      if (states.contains(WidgetState.disabled)) {
+        return Colors.grey; // غير مفعّل
+      }
+      return const Color(0xFF827BE8); // اللون العادي
+    }),
+    foregroundColor: WidgetStateProperty.all(Colors.white),
+    padding: WidgetStateProperty.all(
+      const EdgeInsets.symmetric(horizontal: 15, vertical: 12),
+    ),
+    shape: WidgetStateProperty.all(
+      RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+    ),
+    elevation: WidgetStateProperty.all(6),
+  ),
+ 
+
                                     child: Text('Book Now',
                                         style: TextStyle(
                                             fontSize: 12, color: Colors.white)),
                                   ),
-                                ],
-                              ),
+                               //,
+                                 ]     ),
                             ],
                           ),
                         ),
