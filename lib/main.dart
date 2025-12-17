@@ -26,15 +26,28 @@
 
 
 import 'package:flutter/material.dart';
-// import 'package:my_flutter_app/screens/figmaa.dart';
+import 'package:my_flutter_app/screens/figmaa.dart';
 import 'package:my_flutter_app/screens/login.dart';
 import 'package:my_flutter_app/screens/home_screen.dart';
+import 'package:my_flutter_app/widgets/routes.dart';
+import 'package:my_flutter_app/screens/sign_up.dart';
+import 'package:my_flutter_app/screens/navbutton.dart';
 void main() {
-  runApp(MaterialApp(debugShowCheckedModeBanner: false, home:
+  runApp(MaterialApp(debugShowCheckedModeBanner: false, 
   
+      // تعريف المسارات (routes) باستخدام أسماء ثابتة
+      routes: {
+        Routes.login: (context) => Login(),       // صفحة تسجيل الدخول
+        Routes.home: (context) => Home(),          // الصفحة الرئيسية بعد تسجيل الدخول
+        Routes.signup: (context) => Signup(),      // صفحة إنشاء حساب جديد
+        Routes.main: (context) => HomeScreen(),       // الصفحة العامة أو شاشة البداية
+      },
+
   // Home()
-  //Login()
-  HomeScreen()  
+  // home:Login()
+   home:
+   Navbutton()
+  //  HomeScreen()  
    ));
 }
 

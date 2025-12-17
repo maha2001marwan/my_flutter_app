@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:my_flutter_app/screens/figmaa.dart';
 import 'package:my_flutter_app/widgets/custom_text_field.dart'; // استيراد عنصر الإدخال المخصص
-import 'package:my_flutter_app/screens/sign_up.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:my_flutter_app/widgets/routes.dart';
 
 class Login extends StatelessWidget {
   Login({super.key}); // مُنشئ ثابت بدون مفتاح محدد
@@ -20,7 +19,8 @@ final TextEditingController passWordController = TextEditingController(); // إ�
        // خلفية الصفحة
       backgroundColor: const Color(0xFFF5F6FA),
      // appBar: AppBar(title: Text('Login')), // شريط التطبيق بعنوان "Login"
-      body: Center(
+      body: Center( child:  SingleChildScrollView(
+
            child: Padding(
           padding: const EdgeInsets.all(16.0),
 
@@ -80,12 +80,18 @@ Text(
 ),
 SizedBox(height: 16),
             CustomTextField(hint: 'Email or Phone Number', cont: emailCont,  
-            validate: (email) {
-              if (email != null && email.contains('@') && email.contains('.')) {
-                return null;
-              }
-              return 'Enter Valid Email';
-            },
+               validate: (email) {
+                  if (email == null || !email.contains('@') || !email.contains('.')) {
+                    return 'Email must contain @ and ( . )';
+                  }
+                  return null;
+                },
+               // validate: (email) => email!.contains('@') ? null : 'Enter Valid Email', // عكست الشرط // التحقق من صحة البريد الإلكتروني            // validate: (email) {
+            //   if (email != null && email.contains('@') && email.contains('.')) {
+            //     return null;
+            //   }
+            //   return 'Enter Valid Email';
+            // },
             // validate: (value) {
             //         if (value == null || value.isEmpty) {
             //           return 'يرجى إدخال البريد الإلكتروني';
@@ -122,21 +128,21 @@ SizedBox(height: 16),
 
               onPressed: () {
  // عرض البيانات المدخلة في SnackBar
-                ScaffoldMessenger.of(context).showSnackBar(
-                  SnackBar(
-                    content: Text(
-                      '${emailCont.text} ${passWordController.text}',
-                    ),
-                  ),
-                );
+                // ScaffoldMessenger.of(context).showSnackBar(
+                //   SnackBar(
+                //     content: Text(
+                //       '${emailCont.text} ${passWordController.text}',
+                //     ),
+                //   ),
+                // );
 
-                // تفريغ الحقول بعد الضغط
-                emailCont.clear();
-                passWordController.clear();
+                // // تفريغ الحقول بعد الضغط
+                // emailCont.clear();
+                // passWordController.clear();
               
 
 
-                // _login(context);
+                _login(context);
                   // عند الضغط يتم تنفيذ دالة تسجيل الدخول
 
                 // var text =
@@ -161,9 +167,9 @@ SizedBox(height: 16),
             ),
                             TextButton(
                   onPressed: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) => Signup()),
+                    Navigator.pushReplacementNamed(
+                      context,Routes.signup,
+                     // MaterialPageRoute(builder: (context) => Signup()),
                     );
                   },
                   child: Text("Don't have an account? Signup now",style: TextStyle( fontSize: 14,
@@ -173,11 +179,11 @@ SizedBox(height: 16),
                 ),
                 TextButton(
                   onPressed: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) =>Signup()
+                    Navigator.pushReplacementNamed(
+                      context,Routes.main,
+                    //   MaterialPageRoute(builder: (context) =>HomeScreen()
                      //  ForgetPassword()
-                       ),
+                    //    ),
                     );
                   },
                   child: Text("Forget Password ?",style: TextStyle( fontSize: 14,
@@ -198,7 +204,7 @@ SizedBox(height: 16),
                 // ), ),
           ],
         ),
-      ), ),),
+      ), ),),)
     );
   }
 
@@ -225,11 +231,12 @@ SizedBox(height: 16),
   
   // دالة تسجيل الدخول
   void _login(BuildContext context) {
+
     // التحقق من صحة النموذج قبل المتابعة
     if (_formKey.currentState?.validate() ?? false) {
-      Navigator.pushReplacement(
-        context,
-        MaterialPageRoute(builder: (context) => Home()),
+      Navigator.pushReplacementNamed(
+        context,Routes.home,arguments: emailCont.text
+       // MaterialPageRoute(builder: (context) => Home()),
         );
     } else {
       ScaffoldMessenger.of(context).showSnackBar(
@@ -241,82 +248,82 @@ SizedBox(height: 16),
       );
 
     }
-     var email = emailCont.text;
-    var password = passWordController.text;
+    //  var email = emailCont.text;
+    // var password = passWordController.text;
 
-    emailCont.clear();
-    passWordController.clear();
-    // التحقق من أن الحقول غير فارغة
-    if (email.isEmpty || password.isEmpty) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('please enter your data')),
-      );
-    }
-    if (!email.contains('@') || !email.contains('.') || password.length < 8) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: Text('Enter Valid Credentials'),
-          duration: Duration(milliseconds: 500),
-          backgroundColor: Colors.red,
-        ),
-      );
-    } else {
-      Navigator.pushReplacement(
-        context,
-        MaterialPageRoute(builder: (context) => Home()),
-      );
-    }
+    // emailCont.clear();
+    // passWordController.clear();
+    // // التحقق من أن الحقول غير فارغة
+    // if (email.isEmpty || password.isEmpty) {
+    //   ScaffoldMessenger.of(context).showSnackBar(
+    //     SnackBar(content: Text('please enter your data')),
+    //   );
+    // }
+    // if (!email.contains('@') || !email.contains('.') || password.length < 8) {
+    //   ScaffoldMessenger.of(context).showSnackBar(
+    //     SnackBar(
+    //       content: Text('Enter Valid Credentials'),
+    //       duration: Duration(milliseconds: 500),
+    //       backgroundColor: Colors.red,
+    //     ),
+    //   );
+    // } else {
+    //   Navigator.pushReplacement(
+    //     context,
+    //     MaterialPageRoute(builder: (context) => Home()),
+    //   );
+    // }
 
   }
   
-
+// تحقق يدوي بدون استخدام ال Form و TextFormField validate
   // دالة تسجيل الدخول
-  _login3(BuildContext context) {
-    var email = emailCont.text;
-    var pass = passWordController.text;
+  // _login3(BuildContext context) {
+  //   var email = emailCont.text;
+  //   var pass = passWordController.text;
 
     // تفريغ الحقول مباشرة (يفضل تأجيلها بعد التحقق)
-    emailCont.clear();
-    passWordController.clear();
+  //   emailCont.clear();
+  //   passWordController.clear();
     // التحقق من الحقول الفارغة
-    if (email.isEmpty || pass.isEmpty) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text("Fill Empty Fields")),
-      );
-    }
+  //   if (email.isEmpty || pass.isEmpty) {
+  //     ScaffoldMessenger.of(context).showSnackBar(
+  //       SnackBar(content: Text("Fill Empty Fields")),
+  //     );
+  //   }
     // التحقق من وجود @ في البريد
-    else if (!email.contains("@")) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text("@ symbol is missed")),
-      );
-    }
+  //   else if (!email.contains("@")) {
+  //     ScaffoldMessenger.of(context).showSnackBar(
+  //       SnackBar(content: Text("@ symbol is missed")),
+  //     );
+  //   }
     // التحقق من وجود . في البريد
-    else if (!email.contains(".")) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text(". symbol is missed")),
-      );
-    }
+  //   else if (!email.contains(".")) {
+  //     ScaffoldMessenger.of(context).showSnackBar(
+  //       SnackBar(content: Text(". symbol is missed")),
+  //     );
+  //   }
     // التحقق من طول كلمة المرور
-    else if (pass.length < 8) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text("password is short")),
-      );
-    }
+  //   else if (pass.length < 8) {
+  //     ScaffoldMessenger.of(context).showSnackBar(
+  //       SnackBar(content: Text("password is short")),
+  //     );
+  //   }
     // إذا كانت البيانات صحيحة
-    else {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text("${emailCont.text}, ${passWordController.text}")),
-      );
-    }
+  //   else {
+  //     ScaffoldMessenger.of(context).showSnackBar(
+  //       SnackBar(content: Text("${emailCont.text}, ${passWordController.text}")),
+  //     );
+  //   }
 
     // التنقل إلى الصفحة التالية
-    Navigator.pushReplacement(
-      context,
-      MaterialPageRoute(
-        builder: (context) => Home(), // تأكد أن صفحة Home موجودة
-      ),
-    );
-  }
+  //   Navigator.pushReplacement(
+  //     context,
+  //     MaterialPageRoute(
+  //       builder: (context) => Home(), // تأكد أن صفحة Home موجودة
+  //     ),
+  //   );
+  // }
 }
 
 
