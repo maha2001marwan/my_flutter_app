@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart'; // استيراد مكتبة الواجهات من Flutter
 import 'package:my_flutter_app/data/freelancer_model.dart';
-
+import 'package:my_flutter_app/sections.dart/rating.dart';
 // class ServiceInfo extends StatelessWidget {
 //   // تعريف ودجت ثابتة لعرض معلومات خدمة
 //   final String serviceImg; // مسار/رابط صورة الخدمة
@@ -250,7 +250,8 @@ boxShadow: [
                                 //   Transform.scale(
                                 //     scale: 0.8,
                                 //     child:
-                                     model.rating,
+Rating(ratingModel: model.rating),
+                                //   ),
                                    //),
                                   
                                   Spacer(),

@@ -9,11 +9,11 @@ class MainApp1 extends StatelessWidget {
       length: 3, // عدد التبويبات
       child: Scaffold(
         appBar: AppBar(
-          title: const Text("My First App"), // عنوان التطبيق
+          title:  Text("My First App"), // عنوان التطبيق
           backgroundColor: Colors.amber, // لون شريط التطبيق
           centerTitle: true, // توسيط العنوان
-          leading: const Icon(Icons.arrow_back_ios), // أيقونة الرجوع
-          actions: const [ // أيقونات على يمين الشريط
+          leading:  Icon(Icons.arrow_back_ios), // أيقونة الرجوع
+          actions:  [ // أيقونات على يمين الشريط
             Icon(Icons.settings),
             Icon(Icons.shopping_cart),
             Icon(Icons.home),

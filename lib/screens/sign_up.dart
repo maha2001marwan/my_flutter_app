@@ -1,21 +1,32 @@
 
 import 'package:flutter/material.dart';
-import 'package:my_flutter_app/widgets/custom_text_field.dart'; // استيراد عنصر الإدخال المخصص
+import 'package:my_flutter_app/sections.dart/custom_text_field.dart'; // استيراد عنصر الإدخال المخصص
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:my_flutter_app/widgets/routes.dart';
+import 'package:my_flutter_app/routes.dart';
 // import 'package:my_flutter_app/screens/figmaa.dart';
 
-class Signup extends StatelessWidget {
+class Signup extends StatefulWidget {
    Signup({super.key});
 
+  @override
+  State<Signup> createState() => _SignupState();
+}
+
+class _SignupState extends State<Signup> {
   // متحكمات لحقل البريد وكلمة المرور
   final TextEditingController emailCont = TextEditingController();
+
  final  TextEditingController passwordController = TextEditingController();
+
   final TextEditingController confirmPasswordController = TextEditingController();
+
   final TextEditingController nameController = TextEditingController();
+
   final TextEditingController phoneController = TextEditingController();
+
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+ bool isLoading = false;
 
   @override
   Widget build(BuildContext context) {
@@ -140,7 +151,9 @@ class Signup extends StatelessWidget {
             ElevatedButton( style: ElevatedButton.styleFrom(
     backgroundColor: Colors.blue, ),
               onPressed: () => _signup(context),
-              child: Text('Sign up',style: TextStyle(
+               child: isLoading ? CircularProgressIndicator() : 
+
+               Text('Sign up',style: TextStyle(
                         fontSize: 16,
                         fontWeight: FontWeight.w500,
                         color: Colors.white,),
@@ -152,8 +165,15 @@ class Signup extends StatelessWidget {
   }
 
 // التحقق من النموذج عند الضغط على زر التسجيل
-void _signup(BuildContext context) {
-  
+ _signup(BuildContext context)async {
+   setState(() {
+      isLoading = true;
+    });
+
+  await  Future.delayed(Duration(seconds: 2)); 
+ setState(() {
+      isLoading = false;
+    });
   if (_formKey.currentState!.validate()) {
     // إذا كانت البيانات صحيحة، ينتقل المستخدم إلى الصفحة الرئيسية
     Navigator.pushReplacementNamed(

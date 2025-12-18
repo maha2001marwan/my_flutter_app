@@ -1,4 +1,4 @@
-import 'package:my_flutter_app/widgets/rating.dart';
+import 'package:my_flutter_app/data/rating_model.dart';
 
 class FreelancerModel {
  final String img;
@@ -6,7 +6,9 @@ class FreelancerModel {
  final String name;
 
  final String title; 
-final Rating rating;
+  final RatingModel rating;
 
  FreelancerModel({required this.img, required this.name, required this.title, required this.rating});
 }
+// - كلاس Model (للتعامل مع البيانات من API)
+// - كلاس Widget (لعرض البيانات على الشاشة)

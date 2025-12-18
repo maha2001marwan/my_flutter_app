@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:my_flutter_app/screens/home_screen.dart';
 import 'package:my_flutter_app/screens/login.dart';
- import 'package:my_flutter_app/widgets/routes.dart';
+ import 'package:my_flutter_app/routes.dart';
  import 'package:my_flutter_app/screens/figmaa.dart';
  //import 'package:flutter_svg/flutter_svg.dart';
 

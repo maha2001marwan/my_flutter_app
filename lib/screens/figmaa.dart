@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:my_flutter_app/widgets/section_widget.dart';
-import 'package:my_flutter_app/widgets/freelancer_info_Widget.dart';
+import 'package:my_flutter_app/sections.dart/section_widget.dart';
 import 'package:my_flutter_app/widgets/service_info.dart';
-import 'package:my_flutter_app/widgets/routes.dart';
+import 'package:my_flutter_app/routes.dart';
 import 'package:my_flutter_app/data/freelancer_model.dart';
-import 'package:my_flutter_app/widgets/rating.dart';
+import 'package:my_flutter_app/data/rating_model.dart';
 import 'package:my_flutter_app/widgets/freelancer_card.dart';
 class Home extends StatelessWidget {
   const Home({
@@ -22,7 +21,9 @@ class Home extends StatelessWidget {
             'data:image/jpeg;base64,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',
          name: 'Maha Abu Khater',
         title: 'Flutter Developer',
-        rating: const Rating(rate: 5, count: 200),
+                rating: RatingModel(rate:4.8,count: 150),
+
+
       ), // نهاية عنصر FreelancerInfo
       // عنصر ثاني يعرض معلومات مستقل آخر
       FreelancerModel(
@@ -30,56 +31,56 @@ class Home extends StatelessWidget {
             'https://www.mensjournal.com/.image/t_share/MTk2MTM2NTcwNDMxMjg0NzQx/man-taking-selfie.jpg',
         name: 'Mohamed',
         title: 'Doctor',
-        rating: const Rating(rate:4.5,count: 111),
+        rating:  RatingModel(rate:4.5,count: 111),
       ),
       FreelancerModel(
         img:
             'https://images.unsplash.com/photo-1480455624313-e29b44bbfde1?fm=jpg&q=60&w=3000&ixlib=rb-4.1',
         name: 'Ahmed',
         title: 'Engineer',
-        rating: const Rating(rate: 3.5, count: 80),
+        rating:  RatingModel(rate: 3.5, count: 80),
       ), // نهاية عنصر FreelancerInfo
       FreelancerModel(
         img:
             'https://www.mensjournal.com/.image/t_share/MTk2MTM2NTcwNDMxMjg0NzQx/man-taking-selfie.jpg',
         name: 'Mohamed',
         title: 'Doctor',
-        rating: const Rating(rate:4.5,count: 111),
+        rating:  RatingModel(rate:4.5,count: 111),
       ),
       FreelancerModel(
         img:
             'https://images.unsplash.com/photo-1480455624313-e29b44bbfde1?fm=jpg&q=60&w=3000&ixlib=rb-4.1',
         name: 'Ahmed',
         title: 'Engineer',
-        rating: const Rating(rate: 3.5, count: 80),
+        rating:  RatingModel(rate: 3.5, count: 80),
       ),
       FreelancerModel(
         img:
             'https://www.mensjournal.com/.image/t_share/MTk2MTM2NTcwNDMxMjg0NzQx/man-taking-selfie.jpg',
         name: 'Mohamed',
         title: 'Doctor',
-        rating: const Rating(rate:4.5,count: 111),
+        rating:  RatingModel(rate:4.5,count: 111),
       ),
       FreelancerModel(
         img:
             'https://images.unsplash.com/photo-1480455624313-e29b44bbfde1?fm=jpg&q=60&w=3000&ixlib=rb-4.1',
         name: 'Ahmed',
         title: 'Engineer',
-        rating: const Rating(rate: 3.5, count: 80),
+        rating:  RatingModel (rate: 3.5, count: 80),
       ),
       FreelancerModel(
         img:
             'https://www.mensjournal.com/.image/t_share/MTk2MTM2NTcwNDMxMjg0NzQx/man-taking-selfie.jpg',
         name: 'Mohamed',
         title: 'Doctor',
-        rating: const Rating(rate:4.5,count: 111),
+        rating:  RatingModel(rate:4.5,count: 111),
       ),
       FreelancerModel(
         img:
             "https://images.unsplash.com/photo-1480455624313-e29b44bbfde1?fm=jpg&q=60&...",
         name: 'Ahmed',
         title: 'Engineer',
-        rating: const Rating(rate:4.5,count: 111),
+        rating:  RatingModel(rate:4.5,count: 111),
       ),
     ];
 

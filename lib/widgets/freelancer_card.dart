@@ -93,7 +93,8 @@
 // }
 import 'package:flutter/material.dart';
 import 'package:my_flutter_app/data/freelancer_model.dart';
-import 'freelancer_details.dart';
+import '../details_pages.dart/Freelancer_details.dart';
+import 'package:my_flutter_app/sections.dart/rating.dart';
 
 class FreelancerCard extends StatelessWidget {
   final FreelancerModel model;
@@ -107,13 +108,30 @@ class FreelancerCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        Navigator.push(
+//         Navigator.pushNamed(
+//   context,
+//   '/freelancerDetails',
+//   arguments: model,
+// );
+Navigator.push(
           context,
           MaterialPageRoute(
             builder: (_) => FreelancerDetails(model: model),
           ),
         );
-      },
+
+        //  Navigator.pushNamed(
+        //   context,
+        //   Routes.freelancerDetails,
+        //   arguments: model,
+        // );
+        // Navigator.push(
+        //   context,
+        //   MaterialPageRoute(
+        //     builder: (_) => FreelancerDetails(model: model),
+        //   ),
+        // );
+      }, 
       child: Container(
         width: 160,
         margin: const EdgeInsets.symmetric(horizontal: 8),
@@ -170,7 +188,7 @@ class FreelancerCard extends StatelessWidget {
                 children: [
                   Transform.scale(
                     scale: 0.8,
-                    child: model.rating,
+                    child:Rating(ratingModel: model.rating),
                   ),
                 ],
               ),

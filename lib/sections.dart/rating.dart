@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:my_flutter_app/data/rating_model.dart';
 
 class Rating extends StatelessWidget {
-  const Rating({super.key, required this.rate
-  ,required this.count});
-  final double rate;
-  final double count;
+  const Rating({super.key, required this.ratingModel});
+  final  RatingModel ratingModel;
 
   @override
   Widget build(BuildContext context) {
@@ -15,15 +14,17 @@ class Rating extends StatelessWidget {
         borderRadius: BorderRadius.circular(40),
       ), // BoxDecoration
       child: Row(
+        mainAxisSize: MainAxisSize.min,
+        mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Icon(Icons.star_rounded, color: Color(0xff827BEB)),
           Text(
-            rate.toStringAsFixed(1),
+            ratingModel.rate.toStringAsFixed(1),
             style: TextStyle(fontWeight: FontWeight.bold),
           ),
           SizedBox( width: 5),
            Text(
-           '(${count})' ,
+           '(${ratingModel.count})' ,
             style: TextStyle(fontWeight: FontWeight.w300,
             fontSize: 10),
           ), // Text

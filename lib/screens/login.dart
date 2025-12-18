@@ -1,17 +1,23 @@
 import 'package:flutter/material.dart';
-import 'package:my_flutter_app/widgets/custom_text_field.dart'; // استيراد عنصر الإدخال المخصص
+import 'package:my_flutter_app/sections.dart/custom_text_field.dart'; // استيراد عنصر الإدخال المخصص
 import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:my_flutter_app/widgets/routes.dart';
+import 'package:my_flutter_app/routes.dart';
 
-class Login extends StatelessWidget {
-  Login({super.key}); // مُنشئ ثابت بدون مفتاح محدد
-  // TextEditingController fieldCont =
-  //     TextEditingController(); // إنشاء متحكم لحقل النص لتخزين واسترجاع القيم المدخلة
- final TextEditingController emailCont = TextEditingController(); // إنشاء متحكم لحقل إدخال البريد الإلكتروني
-final TextEditingController passWordController = TextEditingController(); // إنشاء متحكم لحقل إدخال كلمة المرور
-    // مفتاح النموذج للتحقق من صحة البيانات
+class Login extends StatefulWidget {
+  Login({super.key}); 
+  @override
+  State<Login> createState() => _LoginState();
+}
+
+class _LoginState extends State<Login> {
+ // مُنشئ ثابت بدون مفتاح محدد
+ final TextEditingController emailCont = TextEditingController(); 
+ // إنشاء متحكم لحقل إدخال البريد الإلكتروني
+final TextEditingController passWordController = TextEditingController(); 
+ // إنشاء متحكم لحقل إدخال كلمة المرور
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+ bool isLoading = false;
 
   @override
   Widget build(BuildContext context) {
@@ -157,7 +163,9 @@ SizedBox(height: 16),
                 //   ),
                 // );
               },
-                child: Text('login', style: TextStyle(
+               child: isLoading ? CircularProgressIndicator() : 
+                
+                 Text('login', style: TextStyle(
                         fontSize: 16,
                         fontWeight: FontWeight.w500,
                         color: Colors.white,
@@ -209,29 +217,15 @@ SizedBox(height: 16),
   }
 
   // دالة التنقل إلى صفحة Home بعد تسجيل الدخول
-  // _login(BuildContext context) {
-  //   Navigator.push(
-  //     context,
-  //     MaterialPageRoute(
-  //       //     builder: (context) {
-  //       //   return Home(); // الانتقال إلى شاشة الصفحة الرئيسية
-  //       // },
-  //       // اختصرته في سطر واحد
-  //       builder: (context) => Home(), // التنقل إلى صفحة Home
-  //     ),
-  //   );
-  // }
-  
-  // void _login1(BuildContext context) {
-  //   Navigator.pushReplacement(
-  //     context,
-  //     MaterialPageRoute(builder: (context) => const Home()),
-  //   );
-  // }
-  
-  // دالة تسجيل الدخول
-  void _login(BuildContext context) {
+   _login(BuildContext context) async {
+     setState(() {
+      isLoading = true;
+    });
 
+  await  Future.delayed(Duration(seconds: 2)); 
+setState(() {
+      isLoading = false;
+    });
     // التحقق من صحة النموذج قبل المتابعة
     if (_formKey.currentState?.validate() ?? false) {
       Navigator.pushReplacementNamed(
@@ -275,55 +269,6 @@ SizedBox(height: 16),
     // }
 
   }
-  
-// تحقق يدوي بدون استخدام ال Form و TextFormField validate
-  // دالة تسجيل الدخول
-  // _login3(BuildContext context) {
-  //   var email = emailCont.text;
-  //   var pass = passWordController.text;
-
-    // تفريغ الحقول مباشرة (يفضل تأجيلها بعد التحقق)
-  //   emailCont.clear();
-  //   passWordController.clear();
-    // التحقق من الحقول الفارغة
-  //   if (email.isEmpty || pass.isEmpty) {
-  //     ScaffoldMessenger.of(context).showSnackBar(
-  //       SnackBar(content: Text("Fill Empty Fields")),
-  //     );
-  //   }
-    // التحقق من وجود @ في البريد
-  //   else if (!email.contains("@")) {
-  //     ScaffoldMessenger.of(context).showSnackBar(
-  //       SnackBar(content: Text("@ symbol is missed")),
-  //     );
-  //   }
-    // التحقق من وجود . في البريد
-  //   else if (!email.contains(".")) {
-  //     ScaffoldMessenger.of(context).showSnackBar(
-  //       SnackBar(content: Text(". symbol is missed")),
-  //     );
-  //   }
-    // التحقق من طول كلمة المرور
-  //   else if (pass.length < 8) {
-  //     ScaffoldMessenger.of(context).showSnackBar(
-  //       SnackBar(content: Text("password is short")),
-  //     );
-  //   }
-    // إذا كانت البيانات صحيحة
-  //   else {
-  //     ScaffoldMessenger.of(context).showSnackBar(
-  //       SnackBar(content: Text("${emailCont.text}, ${passWordController.text}")),
-  //     );
-  //   }
-
-    // التنقل إلى الصفحة التالية
-  //   Navigator.pushReplacement(
-  //     context,
-  //     MaterialPageRoute(
-  //       builder: (context) => Home(), // تأكد أن صفحة Home موجودة
-  //     ),
-  //   );
-  // }
 }
 
 

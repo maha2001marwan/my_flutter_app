@@ -55,8 +55,8 @@
 // }
 import 'package:flutter/material.dart';
 import 'package:my_flutter_app/data/freelancer_model.dart';
-import 'Freelancer_details.dart';
-
+import 'package:my_flutter_app/widgets/freelancer_details.dart';
+import 'package:my_flutter_app/sections.dart/rating.dart';
 class FreelancerInfoWidget extends StatelessWidget {
   final FreelancerModel model;
   
@@ -67,8 +67,14 @@ class FreelancerInfoWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
+    return InkWell(
+    //GestureDetector(
       onTap: () {
+        //  Navigator.pushNamed(
+        //   context,
+        //   Routes.freelancerDetails,
+        //   arguments: model,
+        // );
         // عند الضغط على الفريلانسر → يفتح شاشة التفاصيل
         Navigator.push(
           context,
@@ -166,7 +172,7 @@ class FreelancerInfoWidget extends StatelessWidget {
                       Container(
                        child: Transform.scale(
   scale: 0.8, // نسبة التصغير (80%)
-  child: model.rating
+  child:  Rating(ratingModel: model.rating)
   )
 
                      ,width: 90,height: 40,),

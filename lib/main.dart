@@ -29,9 +29,15 @@ import 'package:flutter/material.dart';
 import 'package:my_flutter_app/screens/figmaa.dart';
 import 'package:my_flutter_app/screens/login.dart';
 import 'package:my_flutter_app/screens/home_screen.dart';
-import 'package:my_flutter_app/widgets/routes.dart';
+// import 'package:my_flutter_app/screens/tabs.dart';
+// import 'package:my_flutter_app/widgets/book_widget.dart';
+// import 'package:my_flutter_app/widgets/imag.dart';
+import 'package:my_flutter_app/widgets/product_widget.dart';
+import 'package:my_flutter_app/routes.dart';
 import 'package:my_flutter_app/screens/sign_up.dart';
-import 'package:my_flutter_app/screens/navbutton.dart';
+// import 'package:my_flutter_app/widgets/imag.dart';
+// import 'package:my_flutter_app/screens/navbutton.dart';
+// import 'package:my_flutter_app/widgets/freelancer_details.dart';
 void main() {
   runApp(MaterialApp(debugShowCheckedModeBanner: false, 
   
@@ -41,12 +47,18 @@ void main() {
         Routes.home: (context) => Home(),          // الصفحة الرئيسية بعد تسجيل الدخول
         Routes.signup: (context) => Signup(),      // صفحة إنشاء حساب جديد
         Routes.main: (context) => HomeScreen(),       // الصفحة العامة أو شاشة البداية
+        // Routes.freelancerDetails: (context) =>  FreelancerDetails(),       // الصفحة العامة أو شاشة البداية
+
       },
 
   // Home()
   // home:Login()
    home:
-   Navbutton()
+  //  MainApp1(),
+  //  MainApp2(),
+   ProductsPage()
+  //  BookListWidget()
+  //  Navbutton()
   //  HomeScreen()  
    ));
 }

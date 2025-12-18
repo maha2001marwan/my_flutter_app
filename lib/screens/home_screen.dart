@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:my_flutter_app/widgets/routes.dart';
+import 'package:my_flutter_app/routes.dart';
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
 
